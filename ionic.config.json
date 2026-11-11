@@ -1,0 +1,7 @@
+{
+  "name": "Sanderson Center",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
