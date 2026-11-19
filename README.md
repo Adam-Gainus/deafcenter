@@ -76,3 +76,7 @@ Then open the native project with `npx cap open ios` or `npx cap open android`.
 ## Author
 
 Adam — built as an externship project for the Sanderson Community Center of the Deaf and Hard of Hearing.
+
+## Credits
+
+- Sign language icon: [Font Awesome Free](https://fontawesome.com) by Fonticons, Inc., licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
