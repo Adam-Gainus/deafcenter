@@ -1,0 +1,19 @@
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+
+import { VideosPage } from './videos.page';
+
+describe('VideosPage', () => {
+  let component: VideosPage;
+  let fixture: ComponentFixture<VideosPage>;
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(VideosPage);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

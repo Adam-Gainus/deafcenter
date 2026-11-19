@@ -20,6 +20,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/interpreters/interpreters.page').then((m) => m.InterpretersPage),
       },
       {
+        path: 'videos',
+        loadComponent: () => import('./pages/videos/videos.page').then((m) => m.VideosPage),
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full',
@@ -30,5 +34,9 @@ export const routes: Routes = [
     path: '',
     redirectTo: '/tabs/home',
     pathMatch: 'full',
+  },
+  {
+    path: 'videos',
+    loadComponent: () => import('./pages/videos/videos.page').then((m) => m.VideosPage),
   },
 ];
