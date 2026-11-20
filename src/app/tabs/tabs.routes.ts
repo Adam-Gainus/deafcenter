@@ -35,8 +35,4 @@ export const routes: Routes = [
     redirectTo: '/tabs/home',
     pathMatch: 'full',
   },
-  {
-    path: 'videos',
-    loadComponent: () => import('./pages/videos/videos.page').then((m) => m.VideosPage),
-  },
 ];
