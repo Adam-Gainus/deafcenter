@@ -11,6 +11,29 @@
     </ion-toolbar>
   </ion-header>
 
+  <section class="this-week">
+    <h2>This week</h2>
+
+    @if (thisWeek.length === 0) {
+    <p class="empty">No events this week.</p>
+    } @else {
+    <ion-list>
+      @for (event of thisWeek; track event.id) {
+      <ion-item>
+        <ion-label>
+          <h3>{{ event.title }}</h3>
+          <p>{{ event.start | date: 'EEE, MMM d · h:mm a' }}</p>
+          <p>{{ event.place }}</p>
+        </ion-label>
+        @if (event.status === 'cancelled') {
+        <ion-badge slot="end" color="danger">CANCELLED</ion-badge>
+        }
+      </ion-item>
+      }
+    </ion-list>
+    }
+  </section>
+
   <section class="sections">
     <ion-button expand="block" size="large" routerLink="/tabs/events">
       <ion-icon slot="start" name="calendar" aria-hidden="true"></ion-icon>
