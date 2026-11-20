@@ -1,0 +1,17 @@
+.sections {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+   
+    ion-button {
+        height: 80px;
+        margin: 0;
+        font-size: 1.25rem;
+        --border-radius: 16px;
+    }
+
+    ion-icon {
+        font-size: 2rem;
+    }
+}
