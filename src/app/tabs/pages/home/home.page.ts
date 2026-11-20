@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { ViewWillEnter } from '@ionic/angular';
 import {
@@ -40,7 +40,7 @@ import { EventService } from '../../../services/events.service';
   ],
 })
 export class HomePage implements ViewWillEnter {
-  protected thisWeek: CenterEvent[] = [];
+  protected readonly thisWeek = signal<CenterEvent[]>([]);
 
   private readonly eventService = inject(EventService);
 
@@ -49,6 +49,6 @@ export class HomePage implements ViewWillEnter {
   }
 
   ionViewWillEnter(): void {
-    this.thisWeek = this.eventService.getThisWeek();
+    this.thisWeek.set(this.eventService.getThisWeek());
   }
 }

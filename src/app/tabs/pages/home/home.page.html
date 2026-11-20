@@ -14,11 +14,11 @@
   <section class="this-week">
     <h2>This week</h2>
 
-    @if (thisWeek.length === 0) {
+    @if (thisWeek().length === 0) {
     <p class="empty">No events this week.</p>
     } @else {
     <ion-list>
-      @for (event of thisWeek; track event.id) {
+      @for (event of thisWeek(); track event.id) {
       <ion-item>
         <ion-label>
           <h3>{{ event.title }}</h3>
