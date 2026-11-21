@@ -47,14 +47,14 @@ describe('HomePage', () => {
     expect(page.textContent).toContain('No events this week.');
   });
 
-  it("shows this week's events and marks cancelled ones", () => {
+  it("shows this week's events and marks cancelled ones", async () => {
     const eventService = TestBed.inject(EventService);
-    vi.spyOn(eventService, 'getThisWeek').mockReturnValue([
+    vi.spyOn(eventService, 'getThisWeek').mockResolvedValue([
       makeEvent('1', 'ASL Workshop', 'scheduled'),
       makeEvent('2', 'Basketball Night', 'cancelled'),
     ]);
 
-    component.ionViewWillEnter();
+    await component.ionViewWillEnter();
     fixture.detectChanges();
 
     const page: HTMLElement = fixture.nativeElement;

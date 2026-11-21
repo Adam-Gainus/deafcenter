@@ -48,7 +48,8 @@ export class HomePage implements ViewWillEnter {
     addIcons({ calendar, videocam });
   }
 
-  ionViewWillEnter(): void {
-    this.thisWeek.set(this.eventService.getThisWeek());
+  async ionViewWillEnter(): Promise<void> {
+    const events = await this.eventService.getThisWeek();
+    this.thisWeek.set(events);
   }
 }
