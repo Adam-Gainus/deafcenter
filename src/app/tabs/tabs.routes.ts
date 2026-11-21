@@ -24,6 +24,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/videos/videos.page').then((m) => m.VideosPage),
       },
       {
+        path: 'staff',
+        loadComponent: () => import('./pages/staff/staff.page').then((m) => m.StaffPage),
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full',
