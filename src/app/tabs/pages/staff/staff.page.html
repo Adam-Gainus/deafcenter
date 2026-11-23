@@ -1,13 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>staff</ion-title>
+    <ion-title>Staff</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">staff</ion-title>
+      <ion-title size="large">Staff</ion-title>
     </ion-toolbar>
   </ion-header>
+  @if (auth.user(); as user) { @if (auth.isStaff()) {
+  <h2>Hello, staff!</h2>
+  <p>You are logged in as {{ user.email }}.</p>
+  } @else {
+  <p>This account is not a staff account.</p>
+  }
+  <ion-button expand="block" size="large" (click)="logOut()">Log Out</ion-button>
+  } @else {
+  <form (ngSubmit)="logIn()">
+    <ion-list>
+      <ion-item>
+        <ion-input
+          label="Email"
+          labelPlacement="stacked"
+          type="email"
+          name="email"
+          autocomplete="email"
+          required
+          [(ngModel)]="email"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Password"
+          labelPlacement="stacked"
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          required
+          [(ngModel)]="password"
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+
+    @if (errorMessage()) {
+    <ion-text color="danger">
+      <p>{{ errorMessage() }}</p>
+    </ion-text>
+    }
+
+    <ion-button type="submit" expand="block" size="large">Log In</ion-button>
+  </form>
+  }
 </ion-content>
