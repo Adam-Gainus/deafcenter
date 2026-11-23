@@ -1,16 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonItem,
+  IonList,
+  IonText,
+  IonInput,
+} from '@ionic/angular';
+
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-staff',
   templateUrl: './staff.page.html',
   styleUrls: ['./staff.page.scss'],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule],
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, FormsModule, IonButton, IonItem, IonList, IonText, IonInput],
 })
-export class StaffPage implements OnInit {
-  constructor() {}
+export class StaffPage {
+  protected readonly auth = inject(AuthService);
+  protected readonly email = signal('');
+  protected readonly password = signal('');
+  protected readonly errorMessage = signal('');
 
-  ngOnInit() {}
+  protected async logIn(): Promise<void> {
+    this.errorMessage.set('');
+    try {
+      await this.auth.logIn(this.email(), this.password());
+      this.password.set('');
+    } catch {
+      this.errorMessage.set('Wrong email or password. please try again.');
+    }
+  }
+
+  protected async logOut(): Promise<void> {
+    await this.auth.logOut();
+  }
 }
