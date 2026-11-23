@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { ViewWillEnter } from '@ionic/angular';
 import {
+  IonButtons,
   IonBadge,
   IonItem,
   IonLabel,
@@ -15,7 +16,7 @@ import {
   IonIcon,
 } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { calendar, videocam } from 'ionicons/icons';
+import { calendar, personCircle, videocam } from 'ionicons/icons';
 
 import type { CenterEvent } from '../../../models/center-event';
 import { EventService } from '../../../services/events.service';
@@ -25,6 +26,7 @@ import { EventService } from '../../../services/events.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   imports: [
+    IonButtons,
     IonButton,
     IonContent,
     IonHeader,
@@ -45,7 +47,7 @@ export class HomePage implements ViewWillEnter {
   private readonly eventService = inject(EventService);
 
   constructor() {
-    addIcons({ calendar, videocam });
+    addIcons({ calendar, personCircle, videocam });
   }
 
   async ionViewWillEnter(): Promise<void> {
