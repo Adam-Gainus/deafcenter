@@ -1,19 +1,22 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import type { User } from 'firebase/auth';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
 import { auth, db } from '../firebase';
+import type { StaffRole } from '../models/staff-role';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   readonly user = signal<User | null>(null);
-  readonly isStaff = signal(false);
+  readonly role = signal<StaffRole | null>(null);
+  readonly isStaff = computed(() => this.role() !== null);
+  readonly isApprover = computed(() => this.role() === 'manager' || this.role() === 'director');
 
   constructor() {
     onAuthStateChanged(auth, async (user) => {
       this.user.set(user);
-      this.isStaff.set(user ? await this.checkStaff(user.uid) : false);
+      this.role.set(user ? await this.loadRole(user.uid) : null);
     });
   }
 
@@ -25,8 +28,11 @@ export class AuthService {
     await signOut(auth);
   }
 
-  private async checkStaff(uid: string): Promise<boolean> {
+  private async loadRole(uid: string): Promise<StaffRole | null> {
     const staffDoc = await getDoc(doc(db, 'staff', uid));
-    return staffDoc.exists();
+    if (!staffDoc.exists()) {
+      return null;
+    }
+    return staffDoc.data()['role'] ?? 'staff';
   }
 }
