@@ -1,4 +1,4 @@
-export type EventCategory = 'bazaar' | 'workshop' | 'basketball' | 'holiday';
+export type EventCategory = 'event' | 'workshop' | 'class';
 
 export type EventStatus = 'scheduled' | 'cancelled';
 

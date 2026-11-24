@@ -10,7 +10,7 @@ An Ionic + Angular mobile app for the Sanderson Community Center of the Deaf and
 I am building it for my externship hours, so it must be clean, finished, and on GitHub.
 
 ## Features (MVP)
-1. Events calendar: bazaars, workshops, basketball, holidays. Filter by category. Show date, time, place, details. Add to phone calendar.
+1. Events calendar with 3 categories: Event, Workshop, Class (the center chose these). Filter by category. Show date, time, place, details. Add to phone calendar.
 2. Interpreter agencies page: one card per agency with buttons to call, text, email, and open the website.
 3. ASL video snippets with captions.
 4. Home screen: "This week" events, latest video, big buttons for main sections.

@@ -28,6 +28,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/staff/staff.page').then((m) => m.StaffPage),
       },
       {
+        path: 'event-form',
+        loadComponent: () => import('./pages/event-form/event-form.page').then((m) => m.EventFormPage),
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full',

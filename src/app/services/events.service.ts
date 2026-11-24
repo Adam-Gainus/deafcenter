@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import type { QueryDocumentSnapshot } from 'firebase/firestore';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 import { db } from '../firebase';
 import type { CenterEvent } from '../models/center-event';
@@ -17,6 +17,10 @@ export class EventService {
   async getThisWeek(): Promise<CenterEvent[]> {
     const events = await this.loadEvents();
     return thisWeekEvents(events, new Date());
+  }
+
+  async addEvent(event: Omit<CenterEvent, 'id'>): Promise<void> {
+    await addDoc(collection(db, 'events'), event);
   }
 
   private async loadEvents(): Promise<CenterEvent[]> {

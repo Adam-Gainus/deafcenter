@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
   IonContent,
   IonHeader,
@@ -18,7 +19,19 @@ import { AuthService } from '../../../services/auth.service';
   selector: 'app-staff',
   templateUrl: './staff.page.html',
   styleUrls: ['./staff.page.scss'],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, FormsModule, IonButton, IonItem, IonList, IonText, IonInput],
+  imports: [
+    RouterLink,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    FormsModule,
+    IonButton,
+    IonItem,
+    IonList,
+    IonText,
+    IonInput,
+  ],
 })
 export class StaffPage {
   protected readonly auth = inject(AuthService);

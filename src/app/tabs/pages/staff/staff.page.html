@@ -13,6 +13,7 @@
   @if (auth.user(); as user) { @if (auth.isStaff()) {
   <h2>Hello, staff!</h2>
   <p>You are logged in as {{ user.email }}.</p>
+  <ion-button expand="block" size="large" routerLink="/tabs/event-form">Add event</ion-button>
   } @else {
   <p>This account is not a staff account.</p>
   }

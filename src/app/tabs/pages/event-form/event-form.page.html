@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/staff"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form (ngSubmit)="save()">
+    <ion-list>
+      <ion-item>
+        <ion-input label="Title" labelPlacement="stacked" name="title" required [(ngModel)]="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Category" labelPlacement="stacked" name="category" [(ngModel)]="category">
+          <ion-select-option value="event">Event</ion-select-option>
+          <ion-select-option value="workshop">Workshop</ion-select-option>
+          <ion-select-option value="class">Class</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Start"
+          labelPlacement="stacked"
+          type="datetime-local"
+          name="start"
+          required
+          [(ngModel)]="start"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="End"
+          labelPlacement="stacked"
+          type="datetime-local"
+          name="end"
+          required
+          [(ngModel)]="end"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Place" labelPlacement="stacked" name="place" required [(ngModel)]="place"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea
+          label="Details"
+          labelPlacement="stacked"
+          name="details"
+          [autoGrow]="true"
+          [(ngModel)]="details"
+        ></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    @if (errorMessage()) {
+    <ion-text color="danger">
+      <p>{{ errorMessage() }}</p>
+    </ion-text>
+    }
+
+    <ion-button type="submit" expand="block" size="large">Save event</ion-button>
+  </form>
+</ion-content>
