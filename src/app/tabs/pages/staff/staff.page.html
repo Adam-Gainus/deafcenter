@@ -14,7 +14,35 @@
   <h2>Hello, staff!</h2>
   <p>You are logged in as {{ user.email }}.</p>
   <ion-button expand="block" size="large" routerLink="/tabs/event-form">Add event</ion-button>
-  } @else {
+  <h3>Upcoming events</h3>
+  @for (event of events(); track event.id) {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ event.title }}</ion-card-title>
+      <ion-card-subtitle>{{ event.start | date: 'EEE, MMM d · h:mm a' }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      @if (event.status === 'pending') {
+      <ion-badge color="warning">WAITING FOR APPROVAL</ion-badge>
+      } @if (event.status === 'cancelled') {
+      <ion-badge color="danger">CANCELLED</ion-badge>
+      } @if (event.request === 'cancel') {
+      <ion-badge color="warning">ASKED TO CANCEL</ion-badge>
+      } @if (event.request === 'delete') {
+      <ion-badge color="warning">ASKED TO DELETE</ion-badge>
+      } @if (auth.isApprover() && (event.status === 'pending' || event.request)) {
+      <ion-button color="success" (click)="approve(event)">Approve</ion-button>
+      <ion-button color="medium" (click)="reject(event)">Reject</ion-button>
+      } @else if (!event.request) { @if (event.status === 'scheduled') {
+      <ion-button color="warning" (click)="cancelEvent(event)">Cancel event</ion-button>
+      }
+      <ion-button color="danger" fill="outline" (click)="deleteEvent(event)">Delete</ion-button>
+      }
+    </ion-card-content>
+  </ion-card>
+  } @empty {
+  <p>No upcoming events.</p>
+  } } @else {
   <p>This account is not a staff account.</p>
   }
   <ion-button expand="block" size="large" (click)="logOut()">Log Out</ion-button>

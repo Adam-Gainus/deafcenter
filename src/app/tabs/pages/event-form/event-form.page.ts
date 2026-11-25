@@ -19,6 +19,7 @@ import {
 } from '@ionic/angular';
 
 import type { EventCategory } from '../../../models/center-event';
+import { AuthService } from '../../../services/auth.service';
 import { EventService } from '../../../services/events.service';
 
 @Component({
@@ -53,6 +54,7 @@ export class EventFormPage {
   protected readonly errorMessage = signal('');
 
   private readonly eventService = inject(EventService);
+  private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
 
   protected async save(): Promise<void> {
@@ -78,7 +80,7 @@ export class EventFormPage {
         end,
         place: this.place(),
         details: this.details(),
-        status: 'scheduled',
+        status: this.auth.isApprover() ? 'scheduled' : 'pending',
       });
       await this.router.navigateByUrl('/tabs/staff');
     } catch {
