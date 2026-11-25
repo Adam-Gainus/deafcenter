@@ -1,6 +1,8 @@
 export type EventCategory = 'event' | 'workshop' | 'class';
 
-export type EventStatus = 'scheduled' | 'cancelled';
+export type EventStatus = 'pending' | 'scheduled' | 'cancelled';
+
+export type EventRequest = 'cancel' | 'delete';
 
 export interface CenterEvent {
   id: string;
@@ -12,4 +14,5 @@ export interface CenterEvent {
   details: string;
   flyerUrl?: string;
   status: EventStatus;
+  request?: EventRequest;
 }
