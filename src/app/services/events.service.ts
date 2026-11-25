@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import type { QueryDocumentSnapshot } from 'firebase/firestore';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, deleteField, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 
 import { db } from '../firebase';
-import type { CenterEvent, EventStatus } from '../models/center-event';
+import type { CenterEvent, EventRequest, EventStatus } from '../models/center-event';
 
 import { thisWeekEvents, upcomingEvents } from './event-filters';
 
@@ -26,6 +26,36 @@ export class EventService {
 
   async addEvent(event: Omit<CenterEvent, 'id'>): Promise<void> {
     await addDoc(collection(db, 'events'), event);
+  }
+
+  async requestChange(id: string, request: EventRequest): Promise<void> {
+    await updateDoc(doc(db, 'events', id), { request });
+  }
+
+  async cancelEvent(id: string): Promise<void> {
+    await updateDoc(doc(db, 'events', id), { status: 'cancelled', request: deleteField() });
+  }
+
+  async deleteEvent(id: string): Promise<void> {
+    await deleteDoc(doc(db, 'events', id));
+  }
+
+  async approve(event: CenterEvent): Promise<void> {
+    if (event.request === 'delete') {
+      await this.deleteEvent(event.id);
+    } else if (event.request === 'cancel') {
+      await this.cancelEvent(event.id);
+    } else if (event.status === 'pending') {
+      await updateDoc(doc(db, 'events', event.id), { status: 'scheduled' });
+    }
+  }
+
+  async reject(event: CenterEvent): Promise<void> {
+    if (event.request) {
+      await updateDoc(doc(db, 'events', event.id), { request: deleteField() });
+    } else if (event.status === 'pending') {
+      await this.deleteEvent(event.id);
+    }
   }
 
   private async loadEvents(statuses: EventStatus[]): Promise<CenterEvent[]> {
